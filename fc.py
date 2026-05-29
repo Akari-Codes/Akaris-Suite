@@ -95,11 +95,11 @@ def exists(path, multi=False):
 def mkdir(path, multi=False):
     if multi == False:
         if Path(path).is_dir():
-            Path(path).mkdir(exist_ok=True)
+            Path(path).mkdir(exist_ok=True,parents=True)
     else:
         for x in path:
             if Path(x).is_dir():
-                Path(x).mkdir(exist_ok=True)
+                Path(x).mkdir(exist_ok=True,parents=True)
     return
 def get_zero_map(filed):
       bytes = int(os.path.getsize(filed))

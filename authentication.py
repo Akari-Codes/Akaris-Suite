@@ -2,18 +2,23 @@ import fb
 import fc
 from cachy import Cachy as cache
 import os
-import cryptography
-import base64
 import webview
 import settings
 import cli
+import crypt
 settings_template = {
-    {"post_auth_program":"main.py"},
-    {"interface_mode":"gui"}
+    {"post_auth":""},
+    {"save_to_file":""},
+    {"run_program":""},
+    {"interface_mode":"gui"},
+    {"remember_user":False},
     }
 settings.init(name="auth", settings_data=settings_template)
 class auth:
-    
+    def login(username, password):
+        
+    def signup(username, password, s_pin):
+        
 class gui:
     class Api:
         def interface(self, ui):
