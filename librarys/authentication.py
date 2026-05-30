@@ -6,7 +6,7 @@ import webview
 from webview import *
 import settings
 import cli
-import crypt
+import krypt
 import main
 settings_template = {
     {"interface_mode":"gui"},
@@ -15,11 +15,11 @@ settings_template = {
 settings.init(name="auth", settings_data=settings_template)
 class auth:
     def login(username, password):
-        if crypt.pass_check(username, password) == True:
-            user_info = crypt.get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
+        if krypt.pass_check(username, password) == True:
+            user_info = krypt.get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
             main.start(user_info)
     def register(username, password, s_pin):
-        crypt.new_user(username, password, s_pin)
+        krypt.new_user(username, password, s_pin)
         auth.login(username, password)
 def gui():
     class Api:
