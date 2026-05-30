@@ -12,16 +12,19 @@ def get_key_user(username):
     else:
         key = "error"
     return key
+
 def set_key_user(username, key):
     fc.mkdir(path=str(os.getcwd() + "/bin/users/keys/"))
     fc.touch(path=str(os.getcwd() + "/bin/users/keys/" + username + ".dat"))
     fc.dump(data=key, path=str(os.getcwd() + "/bin/users/keys/" + username + ".dat"))
     return
+
 def set_user_info(user_info, user_path):
     fc.mkdir(path=user_path)
     fc.touch(user_path + "user.dll")
     fc.dump(data=user_info, path=user_path + "user.dll")
     return
+
 def get_user_info(user_path):
     user_info = fc.load(path=user_path + "user.dll")
     user_info = pickle.loads(user_info)
@@ -81,7 +84,6 @@ def full_enc(username, password, data):
     data = f.encrypt(data)
     data = base64.urlsafe_b64encode(data)
     return data
-    
 
 def full_enc_new(username, password, s_pin):
     password = base64.urlsafe_b64encode(password.encode())
@@ -121,6 +123,7 @@ def full_enc_new(username, password, s_pin):
     user_info = {{"password":password},{"s_pin":s_pin}, {"sap":salt}}
     set_user_info(user_info, user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     return
+
 def full_dec(username, password):
     password = base64.urlsafe_b64encode(password.encode())
     password = base64.a85encode(password)
