@@ -115,6 +115,20 @@ def mkdir(path, multi=False):
                 Path(x).mkdir(exist_ok=True,parents=True)
     return
 
+def rmdir(path, recursive=False, multi=False):
+    if multi == False:
+        if recursive == False:
+            os.rmdir(Path(path))
+        else:
+            shutil.rmtree(path=Path(path), ignore_errors=True)
+    else:
+        for x in path:
+            if recursive == False:
+                os.rmdir(Path(x))
+            else:
+                shutil.rmtree(path=Path(x), ignore_errors=True)
+    return
+
 def get_zero_map(filed):
       bytes = int(os.path.getsize(filed))
       bits = int(bytes) / int(8)
