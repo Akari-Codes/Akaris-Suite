@@ -1,0 +1,7 @@
+pywebview
+pathlib
+joblib
+pyyaml
+halo
+cryptography
+py7zr

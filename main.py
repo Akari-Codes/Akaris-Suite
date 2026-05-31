@@ -29,8 +29,17 @@ def interface_loop():
 
 def gui():
     class Api:
-        def inteface(ui):
+        def inteface(self,ui):
             window.load_html(fc.open(path=str(os.getcwd() + "/bin/ui/graphical/main/" + ui + ".ui")))
+        def enc(self):
+            mode = str(window.dom.get_element("#app-mode").value())
+            if mode == "enc":
+                file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
+            elif mode == "dec":
+                file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
+            elif mode == "editor":
+                file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=False, file_types=('Encrypted Files (*.encrypted)','All files (*.*)')))
+                self.editor()
     def on_closed():
         cache.deposit(id="runtime", data=False)
         interface_loop()
@@ -40,7 +49,7 @@ def gui():
         window.events.closed += on_closed
         webview.start()
     return
-    
+
 class cl:
     def home():
         cli.cls()

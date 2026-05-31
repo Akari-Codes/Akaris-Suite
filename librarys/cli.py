@@ -3,7 +3,6 @@ import sys
 import pickle
 import subprocess
 import time
-subprocess.check_call([sys.executable, "-m", "pip", "install", "pathlib", "halo"])
 from pathlib import Path
 import shutil
 from halo import Halo

@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 import joblib
 import shutil
+import py7zr
+import re
 def touch(path, multi=False):
     if multi == True:
         for x in len(path)-1:
@@ -130,3 +132,6 @@ def single_erase(path):
     os.remove(filed)
     print("File Erased: " + str(filed))
     return
+def archive():
+
+def extract():

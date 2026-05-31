@@ -1,7 +1,6 @@
 import subprocess
 import sys
 import os
-subprocess.check_call([sys.executable, "-m", "pip", "install", "pathlib", "joblib"])
 from pathlib import Path
 import joblib
 import yaml
