@@ -3,7 +3,7 @@ from pathlib import Path
 import joblib
 import shutil
 import py7zr
-import re
+
 def touch(path, multi=False):
     if multi == True:
         for x in len(path)-1:
@@ -11,6 +11,7 @@ def touch(path, multi=False):
     else:
         Path(str(path)).touch(exist_ok=True)
     return
+
 def open(path, multi=False):
     if multi == False:
         with Path(str(path)) as fc:
@@ -21,6 +22,7 @@ def open(path, multi=False):
             with Path(x) as fc:
                 data.appened(fc.read())
     return data
+
 def open_bytes(path, multi=False):
     if multi == False:
         with Path(str(path)) as fc:
@@ -31,6 +33,7 @@ def open_bytes(path, multi=False):
             with Path(str(x)) as fc:
                 data.appened(fc.read_bytes())
     return data
+
 def write(data, path, multi=False):
     if multi == True:
         c = 0
@@ -42,6 +45,7 @@ def write(data, path, multi=False):
         with Path(str(path)) as fc:
             fc.write_text(data)
     return
+
 def write_bytes(data, path, multi=False):
     if multi == True:
         c = 0
@@ -53,12 +57,15 @@ def write_bytes(data, path, multi=False):
         with Path(str(path)) as fc:
             fc.write_bytes(data)
     return
+
 def load(path):
     data = joblib.load(Path(str(path)))
     return data
+
 def dump(data, path, multi=False):
     joblib.dump(data, Path(str(path)))
     return
+
 def destroy(path, multi=False):
     if multi == True:
         for x in path:
@@ -66,6 +73,7 @@ def destroy(path, multi=False):
     else:
         os.remove(Path(str(path)))
     return
+
 def move(src, dest, multi=False):
     if multi == True:
         for x in len(src)-1:
@@ -73,6 +81,7 @@ def move(src, dest, multi=False):
     else:
         shutil.move(Path(str(src)), Path(str(dest)))
     return
+
 def copy(src, dest, multi=False):
     if multi == True:
         for x in len(src)-1:
@@ -80,6 +89,7 @@ def copy(src, dest, multi=False):
     else:
         shutil.copy(Path(str(src)), Path(str(dest)))
     return
+
 def exists(path, multi=False):
     if multi == False:
         if Path(str(path)).exists():
@@ -94,6 +104,7 @@ def exists(path, multi=False):
         else:
             data.append(False)
     return data
+
 def mkdir(path, multi=False):
     if multi == False:
         if Path(path).is_dir():
@@ -103,6 +114,7 @@ def mkdir(path, multi=False):
             if Path(x).is_dir():
                 Path(x).mkdir(exist_ok=True,parents=True)
     return
+
 def get_zero_map(filed):
       bytes = int(os.path.getsize(filed))
       bits = int(bytes) / int(8)
@@ -112,6 +124,7 @@ def get_zero_map(filed):
          count += 1
          zero_map += "0b0"
       return zero_map
+
 def erase(path="", paths=[], multi=False):
       if multi == False:
         filed = Path(path)
@@ -125,6 +138,7 @@ def erase(path="", paths=[], multi=False):
         for x in paths:
             single_erase.file(path=x)
       return
+
 def single_erase(path):
     filed = Path(path)
     print("Erasing File: " + str(filed))
@@ -133,6 +147,31 @@ def single_erase(path):
     print("File Erased: " + str(filed))
     return
 
-def archive():
+def archive(path, dest, encryption=[False]):
+    if encryption[0] == False:
+        with py7zr.SevenZipFile(Path(path), 'w') as archive:
+            archive.writeall(Path(dest), 'base')
+    elif encryption[0] == True:
+        password = encryption[1]
+        with py7zr.SevenZipFile(Path(path), 'w', password=password) as archive:
+            archive.writeall(Path(dest), 'base')
+    return
 
-def extract():
+def extract(path, dest="False", decryption=[False]):
+    if dest == "False":
+        if decryption[0] == False:
+            with py7zr.SevenZipFile(Path(path), 'w') as archive:
+                archive.extractall()
+        elif decryption[0] == True:
+            password = decryption[1]
+            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
+                archive.extractall()
+    else:
+        if decryption[0] == False:
+            with py7zr.SevenZipFile(Path(path), 'w') as archive:
+                archive.writeall(Path(dest))
+        elif decryption[0] == True:
+            password = decryption[1]
+            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
+                archive.writeall(Path(dest))
+    return
