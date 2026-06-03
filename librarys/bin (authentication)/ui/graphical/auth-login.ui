@@ -1,0 +1,8 @@
+<button onclick="pywebview.api.interface('auth')">Back</button>
+<h3>Login</h3>
+<p>Username</p>
+<input id="username" type="username" placeholder="Username">
+<p>Password</p>
+<input id="password" type="password" placeholder="Password">
+<p id="l_error"></p>
+<button onclick="pywebview.api.login()">Login</button>

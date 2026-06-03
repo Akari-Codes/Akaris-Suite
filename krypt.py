@@ -31,6 +31,12 @@ def get_user_info(user_path):
     return user_info
 
 def full_enc(username, password, data):
+    password = base64.urlsafe_b64decode(password)
+    password = base64.b16decode(password)
+    password = base64.b32hexdecode(password)
+    password = base64.a85decode(password)
+    password = base64.urlsafe_b64decode(password)
+    password = password.decode()
     user_info = get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     salt = user_info["sap"]
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),length=256,salt=salt,iterations=100_000,)
@@ -78,9 +84,11 @@ def full_enc(username, password, data):
     data = base64.urlsafe_b64encode(data)
     data = f.encrypt(data)
     data = base64.urlsafe_b64encode(data)
+    data = data.decode()
     return data
 
 def new_user(username, password, s_pin):
+    pass_old = password
     password = base64.urlsafe_b64encode(password.encode())
     password = base64.a85encode(password)
     password = base64.b16encode(password)
@@ -88,7 +96,7 @@ def new_user(username, password, s_pin):
     password = base64.urlsafe_b64encode(password)
     salt = random.randint(1, 99999999999)
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),length=256,salt=salt,iterations=100_000,)
-    pass_key = base64.urlsafe_b64encode(kdf.derive(password))
+    pass_key = base64.urlsafe_b64encode(kdf.derive(pass_old))
     f = Fernet(pass_key)
     o_s_pin = s_pin
     s_pin = f.encrypt(s_pin.encode())
@@ -119,7 +127,13 @@ def new_user(username, password, s_pin):
     set_user_info(user_info, user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     return
 
-def full_dec(username, password):
+def full_dec(username, password, data):
+    password = base64.urlsafe_b64decode(password)
+    password = base64.b16decode(password)
+    password = base64.b32hexdecode(password)
+    password = base64.a85decode(password)
+    password = base64.urlsafe_b64decode(password)
+    password = password.decode()
     user_info = get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     salt = user_info["sap"]
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),length=256,salt=salt,iterations=100_000,)
@@ -142,7 +156,7 @@ def full_dec(username, password):
     key = base64.a85decode(key)
     key = base64.urlsafe_b64decode(key)
     f = Fernet(key)
-    data = base64.urlsafe_b64decode(data)
+    data = base64.urlsafe_b64decode(data.encode())
     data = f.decrypt(data)
     data = base64.urlsafe_b64decode(data)
     data = base64.b32hexdecode(data)

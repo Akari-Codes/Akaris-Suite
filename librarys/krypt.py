@@ -31,11 +31,6 @@ def get_user_info(user_path):
     return user_info
 
 def full_enc(username, password, data):
-    password = base64.urlsafe_b64encode(password.encode())
-    password = base64.a85encode(password)
-    password = base64.b16encode(password)
-    password = base64.b32hexencode(password)
-    password = base64.urlsafe_b64encode(password)
     user_info = get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     salt = user_info["sap"]
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),length=256,salt=salt,iterations=100_000,)
@@ -85,7 +80,7 @@ def full_enc(username, password, data):
     data = base64.urlsafe_b64encode(data)
     return data
 
-def full_enc_new(username, password, s_pin):
+def new_user(username, password, s_pin):
     password = base64.urlsafe_b64encode(password.encode())
     password = base64.a85encode(password)
     password = base64.b16encode(password)
@@ -120,16 +115,11 @@ def full_enc_new(username, password, s_pin):
     key = base64.b32hexencode(key)
     key = base64.urlsafe_b64encode(key)
     set_key_user(username, key)
-    user_info = {{"password":password},{"s_pin":s_pin}, {"sap":salt}}
+    user_info = {{"username":username}, {"password":password}, {"s_pin":s_pin}, {"sap":salt}}
     set_user_info(user_info, user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     return
 
-def full_dec(username, password):
-    password = base64.urlsafe_b64encode(password.encode())
-    password = base64.a85encode(password)
-    password = base64.b16encode(password)
-    password = base64.b32hexencode(password)
-    password = base64.urlsafe_b64encode(password)
+def full_dec(username, password, data):
     user_info = get_user_info(user_path=str(os.getcwd() + "/bin/users/" + username + "/"))
     salt = user_info["sap"]
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),length=256,salt=salt,iterations=100_000,)
