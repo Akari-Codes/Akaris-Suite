@@ -1,0 +1,48 @@
+<style>
+    #tool_bar {margin:0px;background-color: purple;border-radius: 50px;}
+    .tool_bar_btn {background-color: purple;color:white;border:none;}
+    .tool_bar_btn:hover {background-color: rgb(82, 0, 82);}
+    .tool_bar_start {border-top-left-radius: 50px;border-bottom-left-radius: 50px;}
+    .too_bar_end{border-top-right-radius: 50px;border-bottom-right-radius: 50px;}
+    body {background-color: rgb(48, 48, 48);color:white;font-family: Arial, Helvetica, sans-serif;}
+    #title_block {text-align: center;}
+    #title {color:magenta;}
+    #tool_block {margin:5px;display: block;text-align: center; align-content: center;}
+    .tool_container {text-align: left;background-color: purple;padding:10px;border-radius: 20px;border:none}
+    .tool_title {color:whtie;}
+    .tool_desc {color:grey}
+    .tool_btn {color:white;background-color: magenta;border:none;border-radius: 7px;}
+    .tool_btn:hover {background-color: rgb(82, 0, 82);}
+
+</style>
+<html>
+<title>Akari's Suite - Encryption and Decryption Tools</title>
+    <div id="tool_bar">
+        <button class="tool_bar_btn tool_bar_start" onclick="pywebview.api.interface('home')">Back</a>
+    </div>
+    <body>
+        <div id="title_block">
+            <h2 id="title">Akari's Suite - Encryption and Decryption Tools</h2>
+        </div>
+        <div id="tool_block">
+            <div class="tool_container">
+                <h3 class="tool_title">File Encryption</h3>
+                <p class="tool_desc">Encrypt File or Files.</p>
+                <button onclick="pywebview.api.encryption()", class="tool_btn">Open</button>
+            </div><br>
+            <div class="tool_container">
+                <h3 class="tool_title">File Decryption</h3>
+                <p class="tool_desc">Decrypt File or Files.</p>
+                <button onclick="pywebview.api.decryption()", class="tool_btn">Open</button>
+            </div><br>
+            <div class="tool_container">
+                <h3 class="tool_title">Secure Editor</h3>
+                <p class="tool_desc">Make notes that are encrypted and read notes that are encrypted.</p>
+                <button onclick="pywebview.api.editor()", class="tool_btn">Open</button>
+            </div>
+        </div>
+    </body>
+    <footer>
+        <div></div>
+    </footer>
+</html>

@@ -16,24 +16,25 @@ def gui():
             window.load_html(fc.open(path=str(os.getcwd() + "/bin/ui/graphical/main/" + ui + ".ui")))
             return
 
-        def enc(self):
-            mode = str(window.dom.get_element("#app-mode").value())
-            if mode == "enc":
-                file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
-                user_info = cache.withdraw(id="user_info")
-                for x in file:
-                    data = krypt.full_enc(username=user_info["username"], password=user_info["password"], data=fc.open(path=x))
-                    fc.write(path=x, data=data)
-            elif mode == "dec":
-                file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
-                for x in file:
-                    data = krypt.full_dec(username=user_info["username"], password=user_info["password"], data=fc.open(path=x))
-                    fc.write(path=x, data=data)
-            elif mode == "editor":
-                cache.deposit(id="editor_saved", data=False)
-                cache.deposit(id="editor_current_open", data="!NONE!")
-                self.interface(ui="editor")
-                window.dom.get_element('#status').text = "*"
+        def encryption(self):
+            file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
+            user_info = cache.withdraw(id="user_info")
+            for x in file:
+                data = krypt.full_enc(username=user_info["username"], password=user_info["password"], data=fc.open(path=x))
+                fc.write(path=x, data=data)
+
+        def decrytpion(self):
+            file = list(window.create_file_dialog(webview.FileDialog.OPEN, allow_multiple=True, file_types=('All files (*.*)')))
+            user_info = cache.withdraw(id="user_info")
+            for x in file:
+                data = krypt.full_dec(username=user_info["username"], password=user_info["password"], data=fc.open(path=x))
+                fc.write(path=x, data=data)
+
+        def editor(self):
+            cache.deposit(id="editor_saved", data=False)
+            cache.deposit(id="editor_current_open", data="!NONE!")
+            self.interface(ui="editor")
+            window.dom.get_element('#status').text = "*"
 
         def editor_quit(self):
             if cache.withdraw(id="editor_saved") == False:
