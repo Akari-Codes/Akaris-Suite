@@ -31,6 +31,7 @@ def gui():
                 fc.write(path=x, data=data)
 
         def editor(self):
+            cache.deposit(id="edtior_toggle_states", data=[False])
             cache.deposit(id="editor_saved", data=False)
             cache.deposit(id="editor_current_open", data="!NONE!")
             self.interface(ui="editor")
@@ -80,7 +81,7 @@ def gui():
             cache.deposit(id="editor_saved", data=False)
             window.dom.get_element('#status').text = "*"
         
-        def new_as(self):
+        def editor_new_as(self):
             user_info = cache.withdraw(id="user_info")
             path = str(window.create_file_dialog(webview.FileDialog.SAVE, allow_multiple=False, file_types=('Encrypted Secrets Text Files (*.secret)')))
             fc.touch(path)
@@ -107,6 +108,21 @@ def gui():
             window.dom.get_element('#text_box').text = ""
             window.dom.get_element('#status').text = "*"
 
+        def edtior_file_ribbon_toggle(self):
+            toggles = cache.withdraw(id="editor_toggle_states")
+            if toggles == False:
+                toggle = True
+                toggles[0] = toggle
+                cache.deposit(id="editor_toggle_states", data=toggles)
+                window.dom.get_element('#ribbon').style['display'] = "block"
+                window.dom.get_element('#text_box').style['height'] = "81%"
+            else:
+                toggle = False
+                toggles[0] = toggle
+                cache.deposit(id="editor_toggle_states", data=toggles)
+                window.dom.get_element('#ribbon').style['display'] = "none"
+                window.dom.get_element('#text_box').style['height'] = "90%"
+    
     def on_closed():
         quit()
 

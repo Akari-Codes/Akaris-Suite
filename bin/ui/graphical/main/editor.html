@@ -1,0 +1,82 @@
+<style>
+    #tool_bar {display:block;margin:0px;background-color: purple;border-radius: 50px;}
+    .tool_bar_btn {background-color: purple;color:white;border:none;}
+    .tool_bar_btn:hover {background-color: rgb(82, 0, 82);}
+    .tool_bar_start {border-top-left-radius: 50px;border-bottom-left-radius: 50px;}
+    .tool_bar_end{border-top-right-radius: 50px;border-bottom-right-radius: 50px;}
+    .tool_bar p {text-align: center;}
+    body {background-color: rgb(48, 48, 48);color:white;font-family: Arial, Helvetica, sans-serif;}
+    #ribbon {padding-left:10px;padding-right:10px;display:none;background-color: purple;border-radius: 20px;margin:0px;text-align: center;align-content: center;place-content: center;}
+    .ribbon_element {padding-top:10px;padding-bottom:10px;text-align: left;}
+    .ribbon_element p {text-align: center;}
+    .ribbon_element img {height: 40px;}
+    .ribbon_element button {padding-top:5px;padding-bottom:5px;background-color: transparent;color:white;border:none;}
+    .ribbon_element button:hover {background-color: rgb(77, 0, 77);}
+    .ribbon_element_divider {text-align: center;}
+    #text_container {text-align: center;}
+    #text_box {width:100%;height: 90%;color:black;background-color: white;border:none}
+    #dd1 {display:inline-block}
+    #ddc1 {display: none;position: absolute;background-color: purple;width:fit-content;z-index: 1;}
+    #ddc1 img {height:20px}
+    #ddc1 button {color:white;display: block;}
+    #ddc1 button:hover {background-color: rgb(77, 0, 77);}
+    #dd1:hover #ddc1 {display: block;}
+    #dd2 {display:inline-block}
+    #ddc2 {display: none;position: absolute;background-color: purple;width:fit-content;z-index: 1;}
+    #ddc2 img {height:20px}
+    #ddc2 button {color:white;display: block;}
+    #ddc2 button:hover {background-color: rgb(77, 0, 77);}
+    #dd2:hover #ddc2 {display: block;}
+    #dd3 {display:inline-block}
+    #ddc3 {display: none;position: absolute;background-color: purple;width:fit-content;z-index: 1;}
+    #ddc3 img {height:20px}
+    #ddc3 button {color:white;display: block;}
+    #ddc3 button:hover {background-color: rgb(77, 0, 77);}
+    #dd3:hover #ddc3 {display: block;}
+    #status_container {background-color: purple;border-radius: 35px;text-align: center;height:14px;}
+    #status {color:white;text-align: center;font-size:13px;}
+</style>
+<html>
+<title>Akari's Suite - Secure Editor</title>
+<div id="status_container">
+    <p id="status">a</p>
+</div><br>
+    <div id="tool_bar">
+        <button class="tool_bar_btn tool_bar_start" onclick="editor_quit">Exit / Back</button><button class="tool_bar_btn" onclick="pywebview.api.edtior_file_ribbon_toggle()">File</button>
+    </div>
+    <br>
+    <body>
+        <div id="ribbon">
+            <div class="ribbon_element">
+                <div id="dd1">
+                    <button id="new" onclick="pywebview.api.editor_new()"><img src="./bin/assets/editor_new.png"></button>
+                    <div id="ddc1">
+                        <button id="new2" onclick="pywebview.api.editor_new()"><img src="./bin/assets/editor_new.png">&nbsp;New</button>
+                        <button id="new_as" onclick="pywebview.api.editor_new_as()"><img src="./bin/assets/editor_new.png">&nbsp;New As</button>
+                    </div>
+                </div>
+                <div id="dd3">
+                    <button id="open" onclick="pywebview.api.editor_open()"><img src="./bin/assets/editor_open.png"></button>
+                    <div id="ddc3">
+                        <button id="open2" onclick="pywebview.api.editor_open()"><img src="./bin/assets/editor_open.png">&nbsp;Open</button>
+                        <button id="open_as" onclick="pywebview.api.editor_open_as()"><img src="./bin/assets/editor_open.png">&nbsp;Open As</button>
+                    </div>
+                </div>
+                <div id="dd2">
+                    <button id="save" onclick="pywebview.api.editor_save()"><img src="./bin/assets/editor_save.png"></button>
+                    <div id="ddc2">
+                        <button id="save2" onclick="pywebview.api.editor_save()"><img src="./bin/assets/editor_save.png">&nbsp;Save</button>
+                        <button id="save_as" onclick="pywebview.api.editor_save_as()"><img src="./bin/assets/editor_save.png">&nbsp;Save As</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div id="text_container">
+            <div id="text_block">
+                <textarea id="text_box">
+                </textarea>
+            </div>
+        </div>
+    </body>
+</html>
