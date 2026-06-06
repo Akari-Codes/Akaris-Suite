@@ -6,10 +6,11 @@ import py7zr
 
 def touch(path, multi=False):
     if multi == True:
-        for x in len(path)-1:
-            Path(str(path)).touch(exist_ok=True)
+        path = list(path)
+        for x in path:
+            Path(str(x)).touch()
     else:
-        Path(str(path)).touch(exist_ok=True)
+        Path(str(path)).touch()
     return
 
 def open(path, multi=False):

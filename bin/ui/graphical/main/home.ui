@@ -22,6 +22,11 @@
                 <p class="tool_desc">Encrypt and decrypt your files with ease. Make notes using a secure text editor to create encrypted notes.</p>
                 <button onclick="pywebview.api.interface('enc')", class="tool_btn">Open</button>
             </div><br>
+            <div class="tool_container">
+                <h3 class="tool_title">Program Compiler Tool</h3>
+                <p class="tool_desc">Encrypt and decrypt your files with ease. Make notes using a secure text editor to create encrypted notes.</p>
+                <button onclick="pywebview.api.interface('p_compiler')", class="tool_btn">Open</button>
+            </div><br>
         </div>
     </body>
     <footer>

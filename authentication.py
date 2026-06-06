@@ -1,6 +1,6 @@
 import fb
 import fc
-from cachy import Cachy as cache
+from cachy import Cachy
 import os
 import webview
 from webview import *
@@ -8,10 +8,8 @@ import settings
 import krypt
 import main
 import time
-
-settings_template = {
-    {"remember_user":False}
-    }
+cache = Cachy()
+settings_template = '{{"remember_user":False}}'
 settings.init(name="auth", settings_data=settings_template)
 
 class auth:

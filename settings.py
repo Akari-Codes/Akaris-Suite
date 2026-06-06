@@ -2,14 +2,16 @@ import fc
 import pickle
 import os
 from pathlib import Path
-from cachy_sub import Cachy as cache
+from cachy_sub import Cachy
+cache = Cachy()
 def init(name, path=False, settings_data=False):
     if path == False:
         path = os.getcwd() + "/bin/settings/"
-    if not Path(path + name + ".conf").exists():
+    if not Path(path + name + ".conf").exists() == True:
+        fc.mkdir(path)
         fc.touch(path=path + name + ".conf")
-        if not settings_data == False:
-            fc.dump(data=settings_data, path=path + name + ".conf")
+    if not settings_data == False:
+        fc.dump(data=settings_data, path=path + name + ".conf")
     cache.deposit(data=path + name + ".conf", id="settings_config_file")
     cache.deposit(data=fc.load(path=path + name + ".conf"), id="settings")
     return
