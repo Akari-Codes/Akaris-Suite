@@ -1,2 +1,0 @@
-<button onclick="pywebview.api.interface('auth-login')">Login</button>
-<button onclick="pywebview.api.interface('auth-signup')">Signup</button>

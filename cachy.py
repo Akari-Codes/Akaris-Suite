@@ -6,28 +6,12 @@ import joblib
 import yaml
 class settings:
     def __init__():
-        settings_path = Path(os.getcwd() + "/cachy_settings.conf")
-        if not settings_path.exists():
-            settings_path.touch()
-            default = ["!!default!!","!!default!!"]
-            joblib.dump(default, settings_path)
-            settings.__init__()
         Cachy()
     def get_cache_path():
-        settings_path = Path(os.getcwd() + "/cachy_settings.conf")
-        settings_data = joblib.load(Path(str(settings_path)))
-        if str(settings_data[0]) == "!!default!!":
-            cache_path_data = os.getcwd() + "/bin/cache/"   
-        else:
-            cache_path_data = os.getcwd() + "/bin/cache/"
+        cache_path_data = str(os.getcwd() + "/bin/cache/")
         return cache_path_data
     def get_session_path():
-        settings_path = Path(os.getcwd() + "/cachy_settings.conf")
-        settings_data = joblib.load(Path(str(settings_path)))
-        if str(settings_data[1]) == "!!default!!":
-            session_path_data = os.getcwd() + "/bin/session-cache/"
-        else:
-            session_path_data = os.getcwd() + "/bin/session-cache/"
+        session_path_data = str(os.getcwd() + "/bin/session-cache/")
         return session_path_data
 class Cachy:
     def __init__(self):
@@ -86,7 +70,7 @@ class Cachy:
             count = count + 1
             if x["id"] == id:
                 data = x["data"]
-                if mode ==1:
+                if mode == 1:
                     self.cache_container.pop(count)
                     print("[Log] Passed item - " + id + " and removed from cache")
                 else:

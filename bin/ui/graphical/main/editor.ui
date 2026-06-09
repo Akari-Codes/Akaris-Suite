@@ -42,7 +42,7 @@
     <p id="status">a</p>
 </div><br>
     <div id="tool_bar">
-        <button class="tool_bar_btn tool_bar_start" onclick="editor_quit">Exit / Back</button><button class="tool_bar_btn" onclick="pywebview.api.edtior_file_ribbon_toggle()">File</button>
+        <button class="tool_bar_btn tool_bar_start" onclick="pywebview.api.editor_quit()">Exit / Back</button><button class="tool_bar_btn" onclick="pywebview.api.edtior_file_ribbon_toggle()">File</button>
     </div>
     <br>
     <body>

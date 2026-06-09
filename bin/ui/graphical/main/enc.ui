@@ -33,7 +33,7 @@
             <div class="tool_container">
                 <h3 class="tool_title">File Decryption</h3>
                 <p class="tool_desc">Decrypt File or Files.</p>
-                <button onclick="pywebview.api.decryption()", class="tool_btn">Open</button>
+                <button onclick="pywebview.api.decrytpion()", class="tool_btn">Open</button>
             </div><br>
             <div class="tool_container">
                 <h3 class="tool_title">Secure Editor</h3>

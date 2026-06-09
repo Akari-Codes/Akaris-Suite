@@ -8,10 +8,10 @@ class settings:
     def __init__():
         Cachy()
     def get_cache_path():
-        cache_path_data = str(os.getcwd() + "/bin/cache/")
+        cache_path_data = str(os.getcwd() + "/bin/sub/cache/")
         return cache_path_data
     def get_session_path():
-        session_path_data = str(os.getcwd() + "/bin/session-cache/")
+        session_path_data = str(os.getcwd() + "/bin/sub/session-cache/")
         return session_path_data
 class Cachy:
     def __init__(self):
