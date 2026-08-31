@@ -1,0 +1,167 @@
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  
+}
+#container-1 {
+    color:magenta;
+    background: #000000;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(94, 23, 110, 1) 45%, rgba(128, 29, 106, 1) 70%, rgba(255, 0, 195, 1) 100%);
+    text-align: center;
+    height: 190px;
+    float:center;
+}
+
+#bd {
+  margin-top: -19px;
+  padding-bottom: 80%;
+  opacity: 1;
+  background-color: black;
+  background-image: radial-gradient(circle, purple 2px, transparent 2px);
+  background-size: 15px 15px;
+  text-align: center;
+}
+#container-2 {
+    color:magenta;
+}
+#sfw {
+    width: 100%;
+    height: fit-content;
+    white-space: nowrap;    
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    text-align: center;
+}
+
+.sfw-item {
+    font-size: 12px;
+    border:5px solid black;
+    resize: both;
+    background: #ff3eec33;
+    border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cstyle%3Epath%7Banimation:stroke 5s infinite linear%3B%7D%40keyframes stroke%7Bto%7Bstroke-dashoffset:776%3B%7D%7D%3C/style%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232d3561' /%3E%3Cstop offset='25%25' stop-color='%23c05c7e' /%3E%3Cstop offset='50%25' stop-color='%23f3826f' /%3E%3Cstop offset='100%25' stop-color='%23ffb961' /%3E%3C/linearGradient%3E %3Cpath d='M1.5 1.5 l97 0l0 97l-97 0 l0 -97' stroke-linecap='square' stroke='url(%23g)' stroke-width='3' stroke-dasharray='388'/%3E %3C/svg%3E") 1;
+    display: inline-block;
+    height:400px;
+    width:200px;
+    border-radius: 10px;
+    float: none;
+    margin-left: 20px;
+}
+#container-3 {
+    color:magenta;
+}
+#nsfw {
+    display: none;
+    width: 100%;
+    height: fit-content;
+    white-space: nowrap;    
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    text-align: center;
+}
+
+.nsfw-item {
+    font-size: 12px;
+    border:5px solid black;
+    resize: both;
+    background: #ff3eec33;
+    border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cstyle%3Epath%7Banimation:stroke 5s infinite linear%3B%7D%40keyframes stroke%7Bto%7Bstroke-dashoffset:776%3B%7D%7D%3C/style%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232d3561' /%3E%3Cstop offset='25%25' stop-color='%23c05c7e' /%3E%3Cstop offset='50%25' stop-color='%23f3826f' /%3E%3Cstop offset='100%25' stop-color='%23ffb961' /%3E%3C/linearGradient%3E %3Cpath d='M1.5 1.5 l97 0l0 97l-97 0 l0 -97' stroke-linecap='square' stroke='url(%23g)' stroke-width='3' stroke-dasharray='388'/%3E %3C/svg%3E") 1;
+    display: inline-block;
+    height:400px;
+    width:200px;
+    border-radius: 10px;
+    float: none;
+    margin-left: 20px;
+}
+
+#nsfw-title {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+</style>
+<html>
+
+    <head>
+        <meta name="description" content="Akaris Suite">
+        <meta name="author" content="Akari Codes">
+        
+    </head>
+    <div id="container-1">
+        <br>
+        <h2 id="title">Manga</h2>
+        <button onclick="window.location.replace('../')">Back</button><br><br>
+        <select id="toggle" onchange="toggleOn()">
+            <option value="show">Show SFW</option>
+            <option value="hide">Show NSFW</option>
+        </select>
+        <br>
+    </div>
+    <div id="bd">
+        <br>
+        <div id="container-2">
+            <h3 id="sfw-title">[SFW]</h3>
+            <div id="sfw">
+                <!--
+                <div class="sfw-item">
+                    <br>
+                    <img src="">
+                    <br>
+                    <h1></h1>
+                    <p></p>
+                    <button onclick=""></button>
+                </div>
+                !-->
+            </div>
+        <div id="container-3">
+            <h3 id="nsfw-title">[NSFW]</h3>
+            <div id="nsfw">
+                <!--
+                <div class="nsfw-item">
+                    <br>
+                    <img src="">
+                    <br>
+                    <h3></h3>
+                    <p></p>
+                    <button onclick=""></button>
+                </div>
+                !-->
+                <div class="nsfw-item">
+                    <br>
+                    <img src="./manga-covers/nsfw/pncruhdxdts.jpg" width="180" height="275">
+                    <br>
+                    <h3>Porn comic Rias Up<br>. Highschool DxD.</h3>
+                    <p></p>
+                    <button onclick="window.open('https://sexkomix2.com/comicsx_en/14734-porn-comic-rias-up--highschool-dxd--tsfsingularity---sugoihero-/')">Open</button>
+                </div>
+                <div class="nsfw-item">
+                    <br>
+                    <img src="./manga-covers/nsfw/spilrcp.jpg" width="180" height="275">
+                    <br>
+                    <h3>Scarletprincess [i love rias!]<br> comic porn</h3>
+                    <p></p>
+                    <button onclick="window.open('https://hdporncomics.com/scarletprincess-i-love-rias-school-college-sex-comic/')">Open</button>
+                </div>
+            </div>
+</html>
+<script>
+function toggleOn() {
+    document.getElementById("nsfw").style.display = "block";
+    document.getElementById("nsfw-title").style.display = "block";
+    document.getElementById("sfw").style.display = "none";
+    document.getElementById("sfw-title").style.display = "none";
+    document.getElementById("toggle").setAttribute("onchange", "toggleOff()");
+}
+function toggleOff() {
+    document.getElementById("nsfw").style.display = "none";
+    document.getElementById("nsfw-title").style.display = "none";
+    document.getElementById("sfw").style.display = "block";
+    document.getElementById("sfw-title").style.display = "block";
+    document.getElementById("toggle").setAttribute("onchange", "toggleOn()");
+}
+</script>
