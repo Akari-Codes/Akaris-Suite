@@ -53,7 +53,7 @@ body {
     color:magenta;
 }
 #nsfw {
-    display: none;
+    visibility: hidden;
     width: 100%;
     height: fit-content;
     white-space: nowrap;    
@@ -78,7 +78,7 @@ body {
 }
 
 #nsfw-title {
-    display: none;
+    visibility: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -170,17 +170,13 @@ body {
 </html>
 <script>
 function toggleOn() {
-    document.getElementById("nsfw").style.display = "block";
-    document.getElementById("nsfw-title").style.display = "block";
-    document.getElementById("sfw").style.display = "none";
-    document.getElementById("sfw-title").style.display = "none";
+    document.getElementById("nsfw").style.visibility = "show";
+    document.getElementById("nsfw-title").style.visibility = "show";
     document.getElementById("toggle").setAttribute("onchange", "toggleOff()");
 }
 function toggleOff() {
-    document.getElementById("nsfw").style.display = "none";
-    document.getElementById("nsfw-title").style.display = "none";
-    document.getElementById("sfw").style.display = "block";
-    document.getElementById("sfw-title").style.display = "block";
+    document.getElementById("nsfw").style.visibility = "hidden";
+    document.getElementById("nsfw-title").style.visibility = "hidden";
     document.getElementById("toggle").setAttribute("onchange", "toggleOn()");
 }
 </script>
