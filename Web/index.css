@@ -17,7 +17,7 @@ body::-webkit-scrollbar {
 
 #bd {
   margin-top: -19px;
-  padding-bottom: 80%;
+  padding-bottom: 100%;
   opacity: 1;
   background-color: black;
   background-image: radial-gradient(circle, purple 2px, transparent 2px);
