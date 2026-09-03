@@ -1,0 +1,47 @@
+<html>
+    <!DOCTYPE html>
+    <link rel="stylesheet" href="./index.css">
+    <head>
+        <title>Akaris Manga Reader</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Akaris Suite">
+        <meta name="author" content="Akari Codes">
+        
+    </head>
+    <div id="container-1">
+        <br>
+        <h2 id="title">Manga Reader</h2>
+        <h5 id="subtitle">Manga Name - </h5>
+        <br>
+    </div>
+    <div id="bd">
+        <div id="manga-container">
+            <br>
+            <img id="manga-frame" src="" width="350px" height="500px"></img><br><br>
+            <button id="pp" onclick="p()">Previous Page</button> <button id="np" onclick="n()">Next Page</button>
+            <p class="manga-text">Page <font id="page-num"></font> / <font id="total-p"></font></p>
+        </div>
+    </div>
+<script>
+const image_list = []
+var tpages = image_list.length
+var currentPage = 1
+document.getElementById('total-p').innerText = tpages.toString()
+document.getElementById('page-num').innerText = currentPage.toString()
+document.getElementById('manga-frame').src = image_list[0]
+function p() {
+    currentPage = currentPage - 1
+    document.getElementById('page-num').innerText = currentPage.toString()
+    document.getElementById('manga-frame').src = image_list[currentPage - 1]
+    if(currentPage === 1) {document.getElementById('pp').style.display = "none"} else {document.getElementById('pp').style.display = "inline-block"}
+    if(currentPage === tpages) {document.getElementById('np').style.display = "none"} else {document.getElementById('np').style.display = "inline-block"}
+}
+function n() {
+    currentPage = currentPage + 1
+    document.getElementById('page-num').innerText = currentPage.toString()
+    document.getElementById('manga-frame').src = image_list[currentPage - 1]
+    if(currentPage === 1) {document.getElementById('pp').style.display = "none"} else {document.getElementById('pp').style.display = "inline-block"}
+    if(currentPage === tpages) {document.getElementById('np').style.display = "none"} else {document.getElementById('np').style.display = "inline-block"}
+}
+</script>
