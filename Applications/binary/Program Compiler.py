@@ -1,9 +1,9 @@
 import os
 import base64
 import binascii
-import fc
-import fb
-from cachy import Cachy as cache
+import Applications.binary.fc as fc
+import Applications.binary.fb as fb
+from Applications.binary.cachy import Cachy as cache
 from pathlib import Path
 import PyInstaller.__main__
 class compiler:

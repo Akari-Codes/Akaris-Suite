@@ -1,7 +1,7 @@
-from cachy import Cachy
+from Applications.binary.cachy import Cachy
 import os
-import fc
-import krypt
+import Applications.binary.fc as fc
+import Applications.binary.krypt as krypt
 import webview
 from webview import *
 from pathlib import Path

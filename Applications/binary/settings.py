@@ -1,8 +1,8 @@
-import fc
+import Applications.binary.fc as fc
 import pickle
 import os
 from pathlib import Path
-from cachy_sub import Cachy
+from Applications.MangaReader.cachy_sub import Cachy
 cache = Cachy()
 def init(name, path=False, settings_data=False):
     if path == False:

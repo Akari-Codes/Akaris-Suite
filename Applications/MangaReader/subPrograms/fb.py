@@ -5,7 +5,7 @@ from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 from pathlib import Path
 try:
-    import fc
+    import Applications.MangaReader.subPrograms.fc as fc
 except:
     print("[Error] File Core (fc) Module not found File Browser (fb) can not run without File core (fc) please install File core (fc)")
     quit()

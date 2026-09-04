@@ -1,8 +1,8 @@
-import fc
+import Applications.MangaReader.subPrograms.fc as fc
 import pickle
 import os
 from pathlib import Path
-from cachy_sub import Cachy as cache
+from Applications.binary.librarys.cachy_sub import Cachy as cache
 def init(name, path=False, settings_data=False):
     if path == False:
         path = os.getcwd() + "/bin/settings/"
