@@ -6,6 +6,7 @@ import subPrograms.fb as fb
 from subPrograms.cachy_sub import Cachy
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import threading
+import py7zr
 cache = Cachy()
 
 def getMangaBooks(mangaBooks):
@@ -27,7 +28,7 @@ body::-webkit-scrollbar {
     background: #000000;
     background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(94, 23, 110, 1) 45%, rgba(128, 29, 106, 1) 70%, rgba(255, 0, 195, 1) 100%);
     text-align: center;
-    height: 130px;
+    height: 180px;
     float:center;
 }
 
@@ -131,6 +132,23 @@ color:magenta;}
 .btnoption:last-of-type {
     border-radius: 5px 5px 0px 0px;
 }
+
+#addMangaBtn {
+    border-style: solid;
+    border-width: 3.5px;
+    border-radius: 5px;
+    border-color: purple;
+    animation-name: addMangaBtnAni;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    background-color: rgb(58, 0, 58);
+    color:magenta;
+    font-weight: bold;
+}
+#addMangaBtn:hover {
+    border-color: magenta;
+    color:red;
+}
 </style>
 <html>
     <!DOCTYPE html>
@@ -144,8 +162,11 @@ color:magenta;}
         <div id="container-1">
             <br>
             <h2 id="title">Manga Collection</h2>
+            <br>
+            <button id="addMangaBtn" onclick='pywebview.api.addManga()'>+ Add Manga</button> <button id="addMangaBtn" onclick="pywebview.api.mangaFormat()">Manga Format</button>
         </div>
         <div id="bd">
+        <br><br>
             <div id="mangaCollection">""" + mangaBooks + """</div>"
             </div>
         </div>
@@ -291,20 +312,32 @@ class Api:
     <img src='http://127.0.0.1:9999/bin/assets/mangaCovers/""" + x + """.cover' width="180" height="275">
     <br>
     <p>""" + x + """</p>
-    <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button>
+    <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button><br><br>
+    <button class="delete-btn" onclick="pywebview.api.deleteManga('""" + x + """')">Delete Manga</button>
 </div>
-"""
         htmlContent = getMangaBooks(mangaBooks)
         self.ui("mangaReader", mode="string", html=htmlContent)
 
     def loadMangas(self,name):
-        pages = os.listdir(Path(mangaFolder + name + "/"))
+        pages = sorted(os.listdir(Path(mangaFolder + name + "/")))
         mangaPages = ""
         for x in pages:
             mangaPages = mangaPages + "'http://127.0.0.1:9999/bin/manga/" + name + "/" + x + "',"
         htmlContent = getMangaPages(mangaPages)
         self.ui("mangaReader", mode="string", html=htmlContent)
         window.dom.get_element('#manga-name').text = name
+
+    def deleteManga(self,name):
+        fc.rmdir(path = mangaFolder + name + "/")
+        self.loadManga()
+
+    def addManga(self):
+        mangaArchive = fb.get(title="Select Manga Archive", fileTypes=[("Manga Archive", "*.MangaBook")])
+        fc.extract(path = Path(mangaArchive), dest = mangaFolder, password=None)
+        self.loadManga()
+
+    def mangaFormat(self):
+        self.ui("mangaFormat")
 
 if __name__ == "__main__":
     server = ThreadingHTTPServer(("localhost", 9999), SimpleHTTPRequestHandler)
@@ -321,7 +354,8 @@ if __name__ == "__main__":
     <img src='http://127.0.0.1:9999/bin/assets/mangaCovers/""" + x + """.cover' width="180" height="275">
     <br>
     <p>""" + x + """</p>
-    <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button>
+    <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button><br><br>
+    <button class="delete-btn" onclick="pywebview.api.deleteManga('""" + x + """')">Delete Manga</button>
 </div>
 """
     htmlContent = getMangaBooks(mangaBooks)

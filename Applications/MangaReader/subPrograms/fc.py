@@ -161,31 +161,28 @@ def single_erase(path):
     print("File Erased: " + str(filed))
     return
 
-def archive(path, dest, encryption=[False]):
-    if encryption[0] == False:
+def archive(path, dest, password=None):
+    if password == None:
         with py7zr.SevenZipFile(Path(path), 'w') as archive:
             archive.writeall(Path(dest), 'base')
-    elif encryption[0] == True:
-        password = encryption[1]
+    elif password != None:
         with py7zr.SevenZipFile(Path(path), 'w', password=password) as archive:
             archive.writeall(Path(dest), 'base')
     return
 
-def extract(path, dest="False", decryption=[False]):
+def extract(path, dest="False", password=None):
     if dest == "False":
-        if decryption[0] == False:
-            with py7zr.SevenZipFile(Path(path), 'w') as archive:
+        if password == None:
+            with py7zr.SevenZipFile(Path(path), 'rw') as archive:
                 archive.extractall()
-        elif decryption[0] == True:
-            password = decryption[1]
-            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
+        elif password != None:
+            with py7zr.SevenZipFile(Path(path), mode='rw', password=password) as archive:
                 archive.extractall()
     else:
-        if decryption[0] == False:
-            with py7zr.SevenZipFile(Path(path), 'w') as archive:
+        if password == None:
+            with py7zr.SevenZipFile(Path(path), 'rw') as archive:
                 archive.writeall(Path(dest))
-        elif decryption[0] == True:
-            password = decryption[1]
-            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
+        elif password != None:
+            with py7zr.SevenZipFile(Path(path), mode='rw', password=password) as archive:
                 archive.writeall(Path(dest))
     return
