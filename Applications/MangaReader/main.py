@@ -315,6 +315,7 @@ class Api:
     <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button><br><br>
     <button class="delete-btn" onclick="pywebview.api.deleteManga('""" + x + """')">Delete Manga</button>
 </div>
+"""
         htmlContent = getMangaBooks(mangaBooks)
         self.ui("mangaReader", mode="string", html=htmlContent)
 
