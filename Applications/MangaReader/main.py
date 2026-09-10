@@ -8,11 +8,13 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import threading
 import shutil
 from py7zr import pack_7zarchive, unpack_7zarchive
+
 try:
     shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
     shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
 except:
     print('shutil.RegistryError: .7z is already registered for "7zip"')
+
 cache = Cachy()
 
 formating = """
@@ -87,7 +89,7 @@ margin-left: -12em;
             <div id="manga-container">
                 <br>
                 <h3>Manga Formatting for Import</h3>
-                <p>All images must be named as an integer in the order of the images / pages with the extension of manga instead of whatever image one it has.<br><br>The Cover image must be named the name of the manga then the extension to be cover.<br><br>All Pages / Images including the cover must be placed into a folder with the manga title as the folder name.<br><br>Then the manga archive must extract the folder rather than the folder contents.
+                <p>All images must be named as an integer in the order of the images / pages with the extension of manga instead of whatever image one it has.<br><br>The Cover image must be named 'poster' with the extension '.cover' ('cover')<br><br>All Pages / Images including the cover must be placed into a folder with the manga title as the folder name.<br><br>Then the manga archive must extract the folder rather than the folder contents.
                 </p>
             </div>
         </div>
