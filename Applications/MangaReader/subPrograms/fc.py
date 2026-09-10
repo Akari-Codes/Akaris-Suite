@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 import joblib
 import shutil
-import py7zr
+from py7zr import pack_7zarchive, unpack_7zarchive
+shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
+shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
 
 def touch(path, multi=False):
     if multi == True:
@@ -161,28 +163,28 @@ def single_erase(path):
     print("File Erased: " + str(filed))
     return
 
-def archive(path, dest, password=None):
-    if password == None:
-        with py7zr.SevenZipFile(Path(path), 'w') as archive:
-            archive.writeall(Path(dest), 'base')
-    elif password != None:
-        with py7zr.SevenZipFile(Path(path), 'w', password=password) as archive:
-            archive.writeall(Path(dest), 'base')
+def archive(path, name="archive", dest="False", fs=None):
+    if dest == "False":
+        if fs == None:
+            shutil.make_archive(name, fs, Path(path), Path(path).parent)
+        elif fs != None:
+            shutil.make_archive(name, "zip", Path(path), Path(path).parent)
+    else:
+        if fs == None:
+            shutil.make_archive(name, "zip", Path(path), Path(dest))
+        elif fs != None:
+            shutil.make_archive(name, fs, Path(path), Path(dest))
     return
 
-def extract(path, dest="False", password=None):
+def extract(path, dest="False",fs=None):
     if dest == "False":
-        if password == None:
-            with py7zr.SevenZipFile(Path(path), 'rw') as archive:
-                archive.extractall()
-        elif password != None:
-            with py7zr.SevenZipFile(Path(path), mode='rw', password=password) as archive:
-                archive.extractall()
+        if fs == None:
+            shutil.unpack_archive(Path(path), Path(path).parent) 
+        elif fs != None:
+            shutil.unpack_archive(Path(path), Path(path).parent, fs) 
     else:
-        if password == None:
-            with py7zr.SevenZipFile(Path(path), 'rw') as archive:
-                archive.writeall(Path(dest))
-        elif password != None:
-            with py7zr.SevenZipFile(Path(path), mode='rw', password=password) as archive:
-                archive.writeall(Path(dest))
+        if fs == None:
+            shutil.unpack_archive(Path(path), Path(dest)) 
+        elif fs != None:
+            shutil.unpack_archive(Path(path), Path(dest), fs) 
     return

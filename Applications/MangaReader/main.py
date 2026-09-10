@@ -6,8 +6,92 @@ import subPrograms.fb as fb
 from subPrograms.cachy_sub import Cachy
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import threading
-import py7zr
+import shutil
+from py7zr import pack_7zarchive, unpack_7zarchive
+try:
+    shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
+    shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
+except:
+    print('shutil.RegistryError: .7z is already registered for "7zip"')
 cache = Cachy()
+
+formating = """
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color:magenta;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#container-1 {
+    color:magenta;
+    background: #000000;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(94, 23, 110, 1) 45%, rgba(128, 29, 106, 1) 70%, rgba(255, 0, 195, 1) 100%);
+    text-align: center;
+}
+
+#bd {
+  margin-top: -19px;
+  padding-bottom: 200%;
+  opacity: 1;
+  background-color: black;
+  background-image: radial-gradient(circle, purple 2px, transparent 2px);
+  background-size: 15px 15px;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+}
+
+#manga-container {
+background-color:rgb(27, 0, 40);
+border-color: magenta;
+border-style:solid;
+border-radius: 10px;
+width:400px;
+height:610px;
+position:absolute;
+top: 60%;
+left: 50%;
+margin-top: -9em;
+margin-left: -12em;
+}
+
+.manga-text {
+    color:magenta;
+}
+#pp {display:none;}
+    </style>
+    <html>
+        <!DOCTYPE html>
+        <head>
+            <title>Akaris Manga Reader</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="Akaris Manga Reader">
+            <meta name="author" content="Akari Codes">
+        </head>
+        <div id="container-1">
+            <br>
+            <h2 id="title">Manga Format</h2>
+            <br>
+        </div>
+        <div id="bd">
+            <br><br>
+            <button id="back-btn" onclick="pywebview.api.loadManga()">Back</button>
+            <div id="manga-container">
+                <br>
+                <h3>Manga Formatting for Import</h3>
+                <p>All images must be named as an integer in the order of the images / pages with the extension of manga instead of whatever image one it has.<br><br>The Cover image must be named the name of the manga then the extension to be cover.<br><br>All Pages / Images including the cover must be placed into a folder with the manga title as the folder name.<br><br>Then the manga archive must extract the folder rather than the folder contents.
+                </p>
+            </div>
+        </div>
+"""
 
 def getMangaBooks(mangaBooks):
     mangaCollection = """
@@ -167,7 +251,7 @@ color:magenta;}
         </div>
         <div id="bd">
         <br><br>
-            <div id="mangaCollection">""" + mangaBooks + """</div>"
+            <div id="mangaCollection">""" + mangaBooks + """</div>
             </div>
         </div>
 </html>
@@ -282,6 +366,10 @@ mangaFolder = os.getcwd() + "/bin/manga/"
 Path(mangaFolder).mkdir(exist_ok=True,parents=True)
 uiFolder = os.getcwd() + "/bin/ui/"
 Path(uiFolder).mkdir(exist_ok=True,parents=True)
+if not Path(uiFolder + "mangaFormat.html").exists():
+    Path(uiFolder + "mangaFormat.html").touch(exist_ok=True)
+    with open(Path(uiFolder + "mangaFormat.html"),'w') as f:
+        f.write(formating)
 assetsFolder = os.getcwd() + "/bin/assets/"
 Path(assetsFolder).mkdir(exist_ok=True,parents=True)
 
@@ -309,7 +397,7 @@ class Api:
             mangaBooks = mangaBooks + """
 <div class="manga-item">
     <br>
-    <img src='http://127.0.0.1:9999/bin/assets/mangaCovers/""" + x + """.cover' width="180" height="275">
+    <img src='http://127.0.0.1:9999/bin/manga/""" + x + """/poster.cover' width="180" height="275">
     <br>
     <p>""" + x + """</p>
     <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button><br><br>
@@ -329,12 +417,12 @@ class Api:
         window.dom.get_element('#manga-name').text = name
 
     def deleteManga(self,name):
-        fc.rmdir(path = mangaFolder + name + "/")
+        fc.rmdir(path = mangaFolder + name + "/", recursive=True)
         self.loadManga()
 
     def addManga(self):
-        mangaArchive = fb.get(title="Select Manga Archive", fileTypes=[("Manga Archive", "*.MangaBook")])
-        fc.extract(path = Path(mangaArchive), dest = mangaFolder, password=None)
+        mangaArchive = fb.get(title="Select Manga Archive", fileTypes=[("Manga Book Archive (Book Content)", "*.mangaBook")])
+        shutil.unpack_archive(mangaArchive, mangaFolder, "7zip")
         self.loadManga()
 
     def mangaFormat(self):
@@ -352,7 +440,7 @@ if __name__ == "__main__":
         mangaBooks = mangaBooks + """
 <div class="manga-item">
     <br>
-    <img src='http://127.0.0.1:9999/bin/assets/mangaCovers/""" + x + """.cover' width="180" height="275">
+    <img src='http://127.0.0.1:9999/bin/manga/""" + x + """/poster.cover' width="180" height="275">
     <br>
     <p>""" + x + """</p>
     <button class="open-btn"  onclick="pywebview.api.loadMangas('""" + x + """')">Open</button><br><br>
