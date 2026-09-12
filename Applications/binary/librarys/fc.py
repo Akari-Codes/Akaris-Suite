@@ -2,36 +2,38 @@ import os
 from pathlib import Path
 import joblib
 import shutil
-import py7zr
+from py7zr import pack_7zarchive, unpack_7zarchive
+shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
+shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
 
 def touch(path, multi=False):
     if multi == True:
         for x in len(path)-1:
-            Path(str(path)).touch(exist_ok=True)
+            Path(str(x)).touch(exist_ok=True)
     else:
         Path(str(path)).touch(exist_ok=True)
     return
 
 def open(path, multi=False):
     if multi == False:
-        with Path(str(path)) as fc:
-            data = fc.read_text()
+        with Path(str(path)).open(mode='r') as fc:
+            data = fc.read()
     else:
         data = []
         for x in path:
-            with Path(x) as fc:
+            with Path(x).open(mode='r') as fc:
                 data.appened(fc.read())
     return data
 
 def open_bytes(path, multi=False):
     if multi == False:
-        with Path(str(path)) as fc:
-            data = fc.read_bytes()
+        with Path(str(path)).open(mode='rb') as fc:
+            data = fc.read()
     else:
         data = []
         for x in path:
-            with Path(str(x)) as fc:
-                data.appened(fc.read_bytes())
+            with Path(str(x)).open(mode='rb') as fc:
+                data.appened(fc.readinto())
     return data
 
 def write(data, path, multi=False):
@@ -39,11 +41,11 @@ def write(data, path, multi=False):
         c = 0
         for x in path:
             c += 1
-            with Path(str(x)) as fc:
-                fc.write_text(data[c])
+            with Path(str(x)).open(mode='w') as fc:
+                fc.write(data[c])
     else:
-        with Path(str(path)) as fc:
-            fc.write_text(data)
+        with Path(str(path)).open(mode='w') as fc:
+            fc.write(data)
     return
 
 def write_bytes(data, path, multi=False):
@@ -51,11 +53,11 @@ def write_bytes(data, path, multi=False):
         c = 0
         for x in len(path)-1:
             c += 1
-            with Path(str(x)) as fc:
-                fc.write_bytes(data[c])
+            with Path(str(x)).open(mode='wb') as fc:
+                fc.write(data[c])
     else:
-        with Path(str(path)) as fc:
-            fc.write_bytes(data)
+        with Path(str(path)).open(mode='wb') as fc:
+            fc.write(data)
     return
 
 def load(path):
@@ -161,31 +163,28 @@ def single_erase(path):
     print("File Erased: " + str(filed))
     return
 
-def archive(path, dest, encryption=[False]):
-    if encryption[0] == False:
-        with py7zr.SevenZipFile(Path(path), 'w') as archive:
-            archive.writeall(Path(dest), 'base')
-    elif encryption[0] == True:
-        password = encryption[1]
-        with py7zr.SevenZipFile(Path(path), 'w', password=password) as archive:
-            archive.writeall(Path(dest), 'base')
+def archive(path, name="archive", dest="False", fs=None):
+    if dest == "False":
+        if fs == None:
+            shutil.make_archive(name, fs, Path(path), Path(path).parent)
+        elif fs != None:
+            shutil.make_archive(name, "zip", Path(path), Path(path).parent)
+    else:
+        if fs == None:
+            shutil.make_archive(name, "zip", Path(path), Path(dest))
+        elif fs != None:
+            shutil.make_archive(name, fs, Path(path), Path(dest))
     return
 
-def extract(path, dest="False", decryption=[False]):
+def extract(path, dest="False",fs=None):
     if dest == "False":
-        if decryption[0] == False:
-            with py7zr.SevenZipFile(Path(path), 'w') as archive:
-                archive.extractall()
-        elif decryption[0] == True:
-            password = decryption[1]
-            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
-                archive.extractall()
+        if fs == None:
+            shutil.unpack_archive(Path(path), Path(path).parent) 
+        elif fs != None:
+            shutil.unpack_archive(Path(path), Path(path).parent, fs) 
     else:
-        if decryption[0] == False:
-            with py7zr.SevenZipFile(Path(path), 'w') as archive:
-                archive.writeall(Path(dest))
-        elif decryption[0] == True:
-            password = decryption[1]
-            with py7zr.SevenZipFile(Path(path), mode='r', password=password) as archive:
-                archive.writeall(Path(dest))
+        if fs == None:
+            shutil.unpack_archive(Path(path), Path(dest)) 
+        elif fs != None:
+            shutil.unpack_archive(Path(path), Path(dest), fs) 
     return
