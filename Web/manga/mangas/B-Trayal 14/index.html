@@ -25,18 +25,18 @@
         </div>
     </div>
 <script>
-const name = ""
+const name = "B-Trayal 14"
 const path = "./"
-var tpages = 
+var tpages = 19
 var currentPage = 1
 document.getElementById('subtitle').innerText = "Manga Name - " + name
 document.getElementById('total-p').innerText = tpages.toString()
 document.getElementById('page-num').innerText = currentPage.toString()
-document.getElementById('manga-frame').src = image_list[0]
+document.getElementById('manga-frame').src = path + currentPage.toLocaleString() + ".manga"
 function p() {
     currentPage = currentPage - 1
     document.getElementById('page-num').innerText = currentPage.toString()
-    cp = currentPage - 1 
+    cp = currentPage
     document.getElementById('manga-frame').src = path + cp.toString() + ".manga"
     if(currentPage === 1) {document.getElementById('pp').style.display = "none"} else {document.getElementById('pp').style.display = "inline-block"}
     if(currentPage === tpages) {document.getElementById('np').style.display = "none"} else {document.getElementById('np').style.display = "inline-block"}
@@ -44,7 +44,7 @@ function p() {
 function n() {
     currentPage = currentPage + 1
     document.getElementById('page-num').innerText = currentPage.toString()
-    cp = currentPage + 1
+    cp = currentPage
     document.getElementById('manga-frame').src = path + cp.toString() + ".manga"
     if(currentPage === 1) {document.getElementById('pp').style.display = "none"} else {document.getElementById('pp').style.display = "inline-block"}
     if(currentPage === tpages) {document.getElementById('np').style.display = "none"} else {document.getElementById('np').style.display = "inline-block"}
