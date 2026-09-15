@@ -1,0 +1,9 @@
+[ !Do you want to add or remove a user or setup database / delete databse! ]
+
+[ 1 ] Add User
+[ 2 ] Remove User
+[ 3 ] Setup New database
+[ 4 ] Remove a Database
+
+[ 0 ] Quit
+
